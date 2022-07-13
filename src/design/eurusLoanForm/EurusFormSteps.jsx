@@ -12,9 +12,8 @@ const EurusFormSteps = () => {
 
   const [step, setStep] = useState(1);
   const [formFinishConfirming, setFormFinishConfirming] = useState([0, 0, 0, 0]);
-
-
-  const submitEurusForm = () => {
+  const [formSelectionPlusFormData, setFormSelectionPlusFormData] = useState(0);
+  const formStepIncreaseAndDecrease = () => {
     if (step < 4) { setStep(step + 1) }
     setFormFinishConfirming((data) => {
       let copyArrayData = [data.length];
@@ -30,6 +29,35 @@ const EurusFormSteps = () => {
     })
   }
 
+  const submitEurusForm = () => {
+
+
+    for (const variable in formSelectionPlusFormData.data) {
+      if (!formSelectionPlusFormData.data[variable]) {
+        alert("please fill complete form")
+        return 0;
+      }
+    }
+
+
+    if (formSelectionPlusFormData.select === 1) {
+      formStepIncreaseAndDecrease()
+    } // submit data of form no 1
+
+    if (formSelectionPlusFormData.select === 2) {
+      formStepIncreaseAndDecrease()
+    }// submit data of form no 2
+
+    if (formSelectionPlusFormData.select === 3) {
+      formStepIncreaseAndDecrease()
+    }// submit data of form no 3
+
+    if (formSelectionPlusFormData.select === 4) {
+      formStepIncreaseAndDecrease()
+    }// submit data of form no 4
+
+  }
+
   let formStepControlling = (a) => {
     setStep(a);
   }
@@ -39,10 +67,14 @@ const EurusFormSteps = () => {
 
   const formRender = () => {
     switch (step) {
-      case 1: return (<PreQualificationForm />);
-      case 2: return (<GatherPropertyDetailsForm />);
-      case 3: return (<GatherLoanDetails />);
-      case 4: return (<GatherPersonalDetails />);
+      case 1: return (<PreQualificationForm
+        confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
+      case 2: return (<GatherPropertyDetailsForm
+        confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
+      case 3: return (<GatherLoanDetails
+        confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
+      case 4: return (<GatherPersonalDetails
+        confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
       default: return (null);
     }
   }
@@ -56,7 +88,7 @@ const EurusFormSteps = () => {
               return (
                 <>
 
-                  <Box ml={index === 0 ? (isBreakPoint)?"13%":"16%" : "0px"} display="flex" alignItems="center" width="100%" height="40%">
+                  <Box ml={index === 0 ? (isBreakPoint) ? "13%" : "16%" : "0px"} display="flex" alignItems="center" width="100%" height="40%">
                     <Box component={Avatar} style={{ cursor: "pointer", backgroundColor: formFinishConfirming[index] === index + 1 ? "green" : "#662d91" }} width={isBreakPoint ? "30%" : "15%"}
                       height="100%" onClick={() => { formStepControlling(index + 1) }}>
                       {formFinishConfirming[index] === index + 1 ? <CheckIcon /> : index + 1}

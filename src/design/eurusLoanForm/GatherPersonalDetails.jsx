@@ -1,32 +1,44 @@
 import { Box, Grid, MenuItem, TextField, Typography } from '@material-ui/core'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector , useDispatch } from 'react-redux'
 import { Country } from 'country-state-city';
+import { setPersonalDetailsFormData } from '../../reduxStore/AllFormData';
 
-export const GatherPersonalDetails = () => {
-  const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint)
+export const GatherPersonalDetails = (props) => {
+  const dispatch = useDispatch();
+  const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint);
+  const personalDetailsFormData = useSelector((state)=>{return state.AllFormData.personalDetailsFormData})
+  const onchange = (event) => {
+    const { name, value } = event.target;
+    dispatch( setPersonalDetailsFormData({ ...personalDetailsFormData, [name]: value }));
+  }
+
+  useEffect(() => {
+    props.confirmingForm(personalDetailsFormData, 4);
+}, [personalDetailsFormData])
+
   return (
     <Box width="100%" height="100%">
       <Box m="0px auto" width={isBreakPoint ? "100%" : "90%"} height="80%" padding="8% 5%">
         <Grid container spacing={isBreakPoint ? 2 : 5}>
           <Grid item xs={12} md={6}>
-            <TextField label="First Name" variant='outlined' fullWidth />
+            <TextField label="First Name" value={personalDetailsFormData.fname} name="fname" onChange={onchange} variant='outlined' fullWidth />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField label="Last Name" variant='outlined' fullWidth />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <TextField type="number" label="Contact" variant='outlined' fullWidth />
+            <TextField label="Last Name" value={personalDetailsFormData.lname} name="lname" onChange={onchange} variant='outlined' fullWidth />
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <TextField select label="State" variant='outlined' fullWidth >
+            <TextField type="number" label="Contact" value={personalDetailsFormData.contact} name="contact" onChange={onchange} variant='outlined' fullWidth />
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <TextField select name="state" onChange={onchange} value={personalDetailsFormData.state} label="State" variant='outlined' fullWidth >
               {
 
                 Country.getAllCountries().map((value, index) => {
                   return (
-                    <MenuItem key={index}>{value.name}</MenuItem>
+                    <MenuItem value={value.name} key={index}>{value.name}</MenuItem>
                   )
                 })
               }
@@ -35,14 +47,14 @@ export const GatherPersonalDetails = () => {
 
 
           <Grid item xs={12} md={6}>
-            <TextField type="email" label="Email" variant='outlined' fullWidth />
+            <TextField type="email" label="Email" value={personalDetailsFormData.email} name="email" onChange={onchange} variant='outlined' fullWidth />
           </Grid>
 
 
           <Grid item xs={12} md={6}>
             <Box display="flex" alignItems="center">
               <Typography style={{ marginRight: "6%" }}>Birth</Typography>
-              <TextField type="date" variant='outlined' fullWidth />
+              <TextField name="date" value={personalDetailsFormData.date} onChange={onchange} type="date" variant='outlined' fullWidth />
             </Box>
           </Grid>
         </Grid>
