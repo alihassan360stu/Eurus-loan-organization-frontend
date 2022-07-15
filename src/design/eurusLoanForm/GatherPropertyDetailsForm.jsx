@@ -35,6 +35,5 @@ export const GatherPropertyDetailsForm = (props) => {
         </Grid>
       </Grid>
     </Box>
-
   )
 }

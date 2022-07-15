@@ -52,7 +52,7 @@ export const GatherPersonalDetails = (props) => {
 
           <Grid item xs={12} md={6}>
             <Box display="flex" alignItems="center">
-              <Typography style={{ marginRight: "6%" }}>Birth</Typography>
+              <Typography variant='body1' style={{ marginRight: "6%" }}>Birth</Typography>
               <TextField name="date" value={personalDetailsFormData.date} onChange={onchange} type="date" variant='outlined' fullWidth />
             </Box>
           </Grid>

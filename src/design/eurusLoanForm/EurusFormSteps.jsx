@@ -165,7 +165,7 @@ const EurusFormSteps = () => {
                   <Typography style={{
 
                     fontSize: isBreakPoint ? "80%" : null,
-                    color: formFinishConfirming[index] !== 0 ? "#8cc63f" : errorChecking[index] === formFinishConfirming[index] ? "#662d91" : "red", fontWeight: "bold"
+                    color: formFinishConfirming[index] !== 0 ? "#8cc63f" : errorChecking[index] === formFinishConfirming[index] ? "#662d91" : "red"
                   }}>
                     {val}
                   </Typography>
@@ -186,8 +186,9 @@ const EurusFormSteps = () => {
         </Box>
 
         {
-          (step !== 5) && (<Box maxWidth="100%" display="flex" alignItems="center" justifyContent="center" mt="5%">
-            <Button style={{ backgroundColor: "#662d91", padding: "1.5% 5%" }} onClick={submitEurusForm}>submit</Button>
+          (step !== 5) && 
+          (<Box maxWidth="100%" display="flex" alignItems="center" justifyContent="center" mt="5%">
+            <Button style={{ backgroundColor: "#662d91", padding: "1.5% 5%" , color:"white"}} onClick={submitEurusForm}>Next</Button>
           </Box>)
         }
       </Box>

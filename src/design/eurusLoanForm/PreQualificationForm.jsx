@@ -21,7 +21,7 @@ export const PreQualificationForm = (props) => {
             <Grid container spacing={5}>
                 <Grid style={{ width: "100%", height: "100%" }} item xs={12}>
                     <Box pl="2%" pr="2%" m="0px auto" width="80%" height="16%" borderRadius={5} border={1} display="flex" alignItems="center">
-                        <Typography style={{ flexGrow: 1 }} variant='h6'>Age Under 18 </Typography>
+                        <Typography style={{ flexGrow: 1 }} variant='body1'>Age Under 18 </Typography>
                         <Checkbox style={{ color: "#8cc63f" }} checked={preQualificationFormData.age === true} name="age" onChange={onchange} />
                     </Box>
 
@@ -29,7 +29,7 @@ export const PreQualificationForm = (props) => {
 
                 <Grid style={{ width: "100%", height: "100%" }} item xs={12}>
                     <Box pl="2%" pr="2%" m="0px auto" width="80%" height="16%" borderRadius={5} border={1} display="flex" alignItems="center">
-                        <Typography style={{ flexGrow: 1 }} variant='h6'>Currently Under A PAYG </Typography>
+                        <Typography style={{ flexGrow: 1 }} variant='body1'>Currently Under A PAYG </Typography>
                         <Checkbox style={{ color: "#8cc63f" }} checked={preQualificationFormData.PAYG === true} name="PAYG" onChange={onchange} />
                     </Box>
 
@@ -38,7 +38,7 @@ export const PreQualificationForm = (props) => {
                 <Grid style={{ width: "100%", height: "100%" }} item xs={12}>
                     <Box pl="2%" pr="2%" m="0px auto" width="80%" height="16%" borderRadius={5} border={1} display="flex" alignItems="center">
 
-                        <Typography style={{ flexGrow: 1 }} variant='h6'>Citizen</Typography>
+                        <Typography style={{ flexGrow: 1 }} variant='body1'>Citizen</Typography>
                         <span ><Radio style={{ color: "#8cc63f" }} value="Australia" name="citizen" onChange={onchange} checked={preQualificationFormData.citizen === "Australia"} />Australia</span>
                         <span style={{ marginLeft: "5%" }}><Radio style={{ color: "#8cc63f" }} name="citizen" value="Perneres"
                             onChange={onchange} checked={preQualificationFormData.citizen === "Perneres"} />Perneres</span>
