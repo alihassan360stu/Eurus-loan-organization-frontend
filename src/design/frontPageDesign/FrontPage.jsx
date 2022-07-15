@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import CheckIcon from '@material-ui/icons/Check';
 
 export const FrontPage = () => {
-    const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint)
+    const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint.sm)
     return (
         <>
             <Box disableGutters bgcolor="rgb(215, 224, 225)" minHeight="60vh" color="#662d91" overflow="hidden" mt="3px" maxWidth="xl">

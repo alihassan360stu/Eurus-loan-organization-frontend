@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AppBar, Toolbar, makeStyles,SwipeableDrawer } from '@material-ui/core';
+import { AppBar, Toolbar, makeStyles, SwipeableDrawer } from '@material-ui/core';
 import { NavBarContant } from './NavBarContant';
 import MenuSharpIcon from '@material-ui/icons/MenuSharp';
 import { useTheme, useMediaQuery } from '@material-ui/core';
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         backgroundColor: "rgb(215, 224, 225)",
         // boxShadow:"none" ,
-        position:"static",
+        position: "static",
     },
     image: {
         margin: "7px",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     homeMenuIcon: {
         fontSize: "8vw",
         cursor: "pointer",
-        color:"#662d91",
+        color: "#662d91",
         "&:hover": {
             color: "#8cc63f"
         }
@@ -39,25 +39,30 @@ export const AppBarMenu = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const theme = useTheme();
-    const isResponsive = useMediaQuery(theme.breakpoints.down("sm"));
+    const isResponsive = { xs: false, sm: false, md: false, lg: false, xl: false };
+    isResponsive.xs = useMediaQuery(theme.breakpoints.down("xs"));
+    isResponsive.sm = useMediaQuery(theme.breakpoints.down("sm"));
+    isResponsive.md = useMediaQuery(theme.breakpoints.down("md"));
+    isResponsive.lg = useMediaQuery(theme.breakpoints.down("lg"));
+    isResponsive.xl = useMediaQuery(theme.breakpoints.down("xl"));
     dispatch(checkingResponsive(isResponsive));
     return (
 
         <AppBar className={classes.appBar}>
             <Toolbar>
-                <span style={{ marginLeft: (isResponsive) ? "30px" : "100px" }} className={classes.image}>
+                <span style={{ marginLeft: (isResponsive.sm) ? "30px" : "100px" }} className={classes.image}>
                     <img src="https://finteon.com/wp-content/uploads/2021/07/Finteon_Logo_Col-261x72.png" alt="simple logo" />
                 </span>
                 {
-                    (!isResponsive) ? <NavBarContant align="horizontal" width={null} />
+                    (!isResponsive.sm) ? <NavBarContant align="horizontal" width={null} />
                         :
                         <MenuSharpIcon className={classes.homeMenuIcon} onClick={() => { setOpenDrawer(true); }} />
                 }
 
             </Toolbar>
             {
-                (isResponsive) && (<SwipeableDrawer className={classes.drawerSetting} open={openDrawer} onClose={() => { setOpenDrawer(false) }}>
-                    <NavBarContant align="vertical" width={true} closeDrawer={(a)=>{setOpenDrawer(a)}} />
+                (isResponsive.sm) && (<SwipeableDrawer className={classes.drawerSetting} open={openDrawer} onClose={() => { setOpenDrawer(false) }}>
+                    <NavBarContant align="vertical" width={true} closeDrawer={(a) => { setOpenDrawer(a) }} />
                 </SwipeableDrawer>)
             }
 

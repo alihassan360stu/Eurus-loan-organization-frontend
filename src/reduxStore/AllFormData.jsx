@@ -14,7 +14,6 @@ const initialState = {
 
     loanDetailsFormData: {
         ammount: "",
-        term: "",
         deposit: ""
 
     },
@@ -25,7 +24,11 @@ const initialState = {
         email: "",
         state: "",
         date: ""
-    }
+    },
+    errorChecking: [0, 0, 0, 0,0],
+    formConfirming: "",
+    formFinistConfirm: [0, 0, 0, 0,0],
+    step: 1
 }
 export const AllFormData = createSlice({
     name: 'responsive',
@@ -42,13 +45,33 @@ export const AllFormData = createSlice({
         }, // getting prequalification details
 
         setLoanDetailsFormData: (state, action) => {
-            state.loanDetailsFormData= action .payload;
+            state.loanDetailsFormData = action.payload;
 
         }, // getting loan details
 
         setPersonalDetailsFormData: (state, action) => {
             state.personalDetailsFormData = action.payload;
-        }// getting personal details
+        },// getting personal details
+        setFormConfirming: (state, action) => {
+            if (action.payload !== "cancel") {
+                state.formConfirming = action.payload;
+            }
+            else{
+                state.propertyDetailsFormData={ postcode: "", value: "", property: ""};
+                state.preQualificationFormData={ age: false,PAYG: false, citizen: ""};
+                state.loanDetailsFormData={ammount: "", deposit: ""};
+                state.personalDetailsFormData={    fname: "", lname: "",contact: "",email: "",state: "",date: ""};
+                state.errorChecking=[0, 0, 0, 0, 0];
+                state.formConfirming= "";
+                state.formFinistConfirm= [0, 0, 0, 0, 0];
+                state.step=1;
+            }
+        },
+        setFormFinistConfirm: (state, action) => {
+            state.formFinistConfirm = action.payload[0];
+            state.step = action.payload[1];
+            state.errorChecking = action.payload[2];
+        }
     },
 })
 
@@ -57,7 +80,9 @@ export const {
     setPropertyDetailsFormData,
     setPreQualificationFormData,
     setLoanDetailsFormData,
-    setPersonalDetailsFormData
+    setPersonalDetailsFormData,
+    setFormConfirming,
+    setFormFinistConfirm
 } = AllFormData.actions
 
 export default AllFormData.reducer

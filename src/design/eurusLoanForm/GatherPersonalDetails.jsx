@@ -18,8 +18,7 @@ export const GatherPersonalDetails = (props) => {
 }, [personalDetailsFormData])
 
   return (
-    <Box width="100%" height="100%">
-      <Box m="0px auto" width={isBreakPoint ? "100%" : "90%"} height="80%" padding="8% 5%">
+      <Box m="0px auto" width={isBreakPoint ? "100%" : "90%"} height="80%" padding="0px 5%">
         <Grid container spacing={isBreakPoint ? 2 : 5}>
           <Grid item xs={12} md={6}>
             <TextField label="First Name" value={personalDetailsFormData.fname} name="fname" onChange={onchange} variant='outlined' fullWidth />
@@ -59,6 +58,5 @@ export const GatherPersonalDetails = (props) => {
           </Grid>
         </Grid>
       </Box>
-    </Box>
   )
 }
