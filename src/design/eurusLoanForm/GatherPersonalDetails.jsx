@@ -51,7 +51,7 @@ export const GatherPersonalDetails = (props) => {
 
         <Grid item xs={12}>
           <Box pl="2%" pr="2%" m="0px auto" maxWidth={isBreakPoint.xs ? "90%" : "70%"}>
-            <TextField type="number" label="Social Number" value={personalDetailsFormData.contact} name="contact" onChange={onchange} variant='outlined' fullWidth />
+            <TextField type="number" label="Phone Number" value={personalDetailsFormData.contact} name="contact" onChange={onchange} variant='outlined' fullWidth />
           </Box>
         </Grid>
 
