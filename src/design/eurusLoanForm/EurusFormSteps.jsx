@@ -1,4 +1,4 @@
-import { Box, Avatar, Button, Typography } from '@material-ui/core'
+import { Box, Button, Typography } from '@material-ui/core'
 import { PreQualificationForm } from './PreQualificationForm';
 import { GatherPropertyDetailsForm } from './GatherPropertyDetailsForm';
 import { GatherLoanDetails } from './GatherLoanDetails';
@@ -11,6 +11,8 @@ import { setFormConfirming } from '../../reduxStore/AllFormData';
 import { setFormFinistConfirm } from '../../reduxStore/AllFormData';
 import { FamilyMembers } from './FamilyMembers';
 import { AddressForm } from './AddressForm';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -32,7 +34,8 @@ const EurusFormSteps = () => {
 
       for (let i = 0; i < formFinishConfirming.length; i++) {
         if (formFinishConfirming[i] === 0) {
-          alert("please fill all form")
+       
+          // alert("please fill all form")
           dispatch(setFormConfirming(false))
           i = 10;
         }
@@ -69,7 +72,8 @@ const EurusFormSteps = () => {
   const submitEurusForm = () => {
     for (const variable in formSelectionPlusFormData.data) {
       if (!formSelectionPlusFormData.data[variable]) {
-        alert("please fill complete form")
+        // alert("please fill complete form")
+        toast.error("Please Fill All Attributes");
         return 0;
       }
     }
@@ -168,6 +172,7 @@ const EurusFormSteps = () => {
                   dispatch(setFormConfirming("cancel"));
                 }}>
               {step === 7 ? "Cancal" : "Back"}</Button>
+              <ToastContainer />
             <Button disabled={step === 7 && capchaCode===false} style={{ backgroundColor: "#662d91", color: "white", marginLeft: "1%" }}
               onClick={step !== 7 ? submitEurusForm : () => {
                 dispatch(setFormConfirming("submit"));

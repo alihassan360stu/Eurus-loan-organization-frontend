@@ -4,7 +4,6 @@ import { useSelector,useDispatch } from 'react-redux'
 import ReCAPTCHA from "react-google-recaptcha";
 import CloseIcon from '@material-ui/icons/Close';
 import { Link } from "react-router-dom";
-import { useState } from 'react';
 import { setCaptcha } from '../../reduxStore/AllFormData';
 
 
@@ -86,6 +85,7 @@ export const SubmitConform = (props) => {
                     <Typography style={{ maxWidth: responsiveContainer }} variant={isBreakPoint.xs ? "h6" : isBreakPoint.sm ? "h5" : "h4"} align="center">
                         Form submitted successfuly
                     </Typography>
+                    
                 </Box>
             </Box>
         }

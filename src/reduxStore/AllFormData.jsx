@@ -72,6 +72,7 @@ export const AllFormData = createSlice({
             
             if (action.payload !== "cancel") {
                 state.formConfirming = action.payload;
+                console.log(state.formConfirming);
             }
             else {
 
@@ -90,7 +91,6 @@ export const AllFormData = createSlice({
         setFormFinistConfirm: (state, action) => {
             state.formFinistConfirm = action.payload[0];
             state.step = action.payload[1];
-            console.log(state.formFinistConfirm);
         },
         setCaptcha:(state,action)=>{
             state.captcha=action.payload;
