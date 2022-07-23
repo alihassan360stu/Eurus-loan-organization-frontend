@@ -119,7 +119,7 @@ const EurusFormSteps = () => {
   return (
     <Box  maxWidth={responsiveContainer} pt={isBreakPoint}>
       <Box boxShadow={2} bgcolor="#fafafa" maxWidth={isBreakPoint.xs ? "100%" : isBreakPoint.sm ? "90%" : isBreakPoint.md ? "80%" : "60%"}
-        m={isBreakPoint.sm ? "0px 5%" : "0px auto"} mt={isBreakPoint.xs ? "15%" : isBreakPoint.sm ? "8%" : isBreakPoint.md ? "5%" : "4%"}>
+        m={isBreakPoint.xs ? "0px 5%" : "0px auto"} mt={isBreakPoint.xs ? "15%" : isBreakPoint.sm ? "8%" : isBreakPoint.md ? "5%" : "4%"}>
         {
           (!formSubmit) && (<Box display="flex" width="85%" height="10vh" alignItems="center" margin="0px auto">
 
