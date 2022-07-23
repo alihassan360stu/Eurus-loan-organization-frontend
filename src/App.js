@@ -10,15 +10,15 @@ function App() {
     <Provider store={ReduxStore}>
       <AppBarMenu />
       <Routes>
-        {/* <Route path="/" element={<FrontPage />} /> */}
+        <Route path="/" element={<FrontPage />} />
       </Routes>
 
       <Routes>
-        {/* <Route path="/register" element={<EurusFormSteps />} /> */}
+        <Route path="/register" element={<EurusFormSteps />} />
       </Routes>
 
       <Routes>
-        {/* <Route path="/extra" element={<AccountRegister />} /> */}
+        <Route path="/extra" element={<AccountRegister />} />
       </Routes>
     </Provider>
   );
