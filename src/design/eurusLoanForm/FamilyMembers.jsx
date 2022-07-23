@@ -14,6 +14,7 @@ export const FamilyMembers = (props) => {
         dispatch(setFamilyMemberForm({ ...familyMemberForm, [name]: value }));
     }
 
+    useEffect(()=>{window.scrollTo(0,0);},[])
     useEffect(() => {
         props.confirmingForm(familyMemberForm, 5);
       }, [familyMemberForm])

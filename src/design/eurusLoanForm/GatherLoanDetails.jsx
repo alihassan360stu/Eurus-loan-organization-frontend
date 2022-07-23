@@ -18,6 +18,7 @@ export const GatherLoanDetails = (props) => {
         }
         dispatch(setLoanDetailsFormData({ ...loanDetailsFormData, [name]: value }));
     }
+    useEffect(()=>{window.scrollTo(0,0);},[])
     useEffect(() => {
         props.confirmingForm(loanDetailsFormData, 3);
     }, [loanDetailsFormData])

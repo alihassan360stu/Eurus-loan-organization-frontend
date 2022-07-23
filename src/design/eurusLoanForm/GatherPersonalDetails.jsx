@@ -3,12 +3,8 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setPersonalDetailsFormData } from '../../reduxStore/AllFormData';
 
-export const GatherPersonalDetails = (props) => {
-  var days = [31];
-  for (let i = 0; i < 31; i++) { days[i] = i + 1 }
-  let familayMambers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  
+export const GatherPersonalDetails = (props) => {
   const dispatch = useDispatch();
   const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint);
   const personalDetailsFormData = useSelector((state) => { return state.AllFormData.personalDetailsFormData })
@@ -18,6 +14,7 @@ export const GatherPersonalDetails = (props) => {
     dispatch(setPersonalDetailsFormData({ ...personalDetailsFormData, [name]: value }));
   }
 
+  useEffect(()=>{window.scrollTo(0,0);},[])
   useEffect(() => {
     props.confirmingForm(personalDetailsFormData, 4);
   }, [personalDetailsFormData])

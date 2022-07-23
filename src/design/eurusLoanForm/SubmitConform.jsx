@@ -1,5 +1,5 @@
 import { Box, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import ReCAPTCHA from "react-google-recaptcha";
 import CloseIcon from '@material-ui/icons/Close';
@@ -17,7 +17,7 @@ export const SubmitConform = (props) => {
     const loan = useSelector(state => state.AllFormData.loanDetailsFormData)
     const address = useSelector(state => state.AllFormData.addressForm);
     const capchaCode = useSelector(state => state.AllFormData.captcha);
-
+    useEffect(()=>{window.scrollTo(0,0);},[])
 
     return (<Box m="0px auto" width={isBreakPoint.sx ? "100%" : "90%"} padding="0px 5%">
         {(!formSubmit) ? <>

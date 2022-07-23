@@ -14,6 +14,7 @@ export const AddressForm = (props) => {
         dispatch(setAddressForm({ ...addressForm, [name]: value }));
       }
 
+      useEffect(()=>{window.scrollTo(0,0);},[])
       useEffect(() => {
         props.confirmingForm(addressForm, 6);
       }, [addressForm])

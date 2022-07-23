@@ -11,6 +11,7 @@ export const PreQualificationForm = (props) => {
         var { name, checked } = event.target;
         dispatch(setPreQualificationFormData({ ...preQualificationFormData, [name]: checked }))
     }
+    useEffect(()=>{window.scrollTo(0,0);},[])
     useEffect(() => {
         props.confirmingForm(preQualificationFormData, 1);
     }, [preQualificationFormData])

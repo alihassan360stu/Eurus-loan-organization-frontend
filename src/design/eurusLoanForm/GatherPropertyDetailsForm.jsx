@@ -11,7 +11,7 @@ export const GatherPropertyDetailsForm = (props) => {
     const { name, value } = event.target;
     dispatch(setPropertyDetailsFormData({ ...propertyDetailsFormData, [name]: value }));
   }
-
+  useEffect(()=>{window.scrollTo(0,0);},[])
   useEffect(() => {
     props.confirmingForm(propertyDetailsFormData, 2);
   }, [propertyDetailsFormData])
