@@ -37,6 +37,7 @@ const initialState = {
     formConfirming: "",
     formFinistConfirm: [0, 0, 0, 0, 0, 0, 0],
     step:1,
+    captcha:false
 }
 export const AllFormData = createSlice({
     name: 'responsive',
@@ -83,12 +84,16 @@ export const AllFormData = createSlice({
                 state.formConfirming = "";
                 state.formFinistConfirm = [0, 0, 0, 0, 0,0,0];
                 state.step = 1;
+                state.captcha=false
             }
         },
         setFormFinistConfirm: (state, action) => {
             state.formFinistConfirm = action.payload[0];
             state.step = action.payload[1];
             console.log(state.formFinistConfirm);
+        },
+        setCaptcha:(state,action)=>{
+            state.captcha=action.payload;
         }
     },
 })
@@ -102,7 +107,8 @@ export const {
     setFamilyMemberForm,
     setAddressForm,
     setFormConfirming,
-    setFormFinistConfirm
+    setFormFinistConfirm,
+    setCaptcha
 } = AllFormData.actions
 
 export default AllFormData.reducer

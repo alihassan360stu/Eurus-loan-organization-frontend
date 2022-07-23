@@ -14,6 +14,7 @@ import { AddressForm } from './AddressForm';
 
 
 
+
 const EurusFormSteps = () => {
   const dispatch = useDispatch();
   const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint)
@@ -22,6 +23,7 @@ const EurusFormSteps = () => {
   const formFinishConfirming = useSelector(state => state.AllFormData.formFinistConfirm)
   const step = useSelector(state => state.AllFormData.step)
   const formSubmit = useSelector(state => state.AllFormData.formConfirming)
+  const capchaCode = useSelector(state => state.AllFormData.captcha);
   var formName = ["Pre Qualifitions", "Property Details", "Loan Details", "Personal Details", "Family Members", "Address Information", "Confirming  Details"]
   const [formSelectionPlusFormData, setFormSelectionPlusFormData] = useState(0);
 
@@ -127,11 +129,11 @@ const EurusFormSteps = () => {
               formName.map((value, index) => {
                 return (
                   <Box position="relative" width={`${(100 / formName.length) - .4}%`}>
-                    <Box height="1.5vh" bgcolor={formFinishConfirming[index] === index + 1 ? "green" : "#662d91"}  ></Box>
+                    <Box height="1.5vh" bgcolor={formFinishConfirming[index] === index + 1 ? "#8cc63f" : "#662d91"}  ></Box>
                     <Box position="absolute" left="10%" marginTop="5%">
                       {
                         (step === index + 1) &&
-                        (<Typography style={{ color: formFinishConfirming[index] === index + 1 ? "green" : "#662d91" }} variant='h8'>{value}</Typography>)
+                        (<Typography style={{ color: formFinishConfirming[index] === index + 1 ? "#8cc63f" : "#662d91" }} variant='h8'>{value}</Typography>)
                       }
                     </Box>
                   </Box>
@@ -152,7 +154,7 @@ const EurusFormSteps = () => {
         {
           (!formSubmit) &&
           (<Box maxWidth="100%" display="flex" alignItems="center" justifyContent="center" mt="3%" mb="5%" pb="5%" pt="5%">
-            <Button style={{ backgroundColor: "#662d91", color: "white", marginRight: "2%" }}
+            <Button disabled={step === 7 && capchaCode===false} style={{ backgroundColor: "#662d91", color: "white", marginRight: "2%" }}
 
               onClick={step!==7 ? () => {
                 if (step !== 1) {
@@ -166,7 +168,7 @@ const EurusFormSteps = () => {
                   dispatch(setFormConfirming("cancel"));
                 }}>
               {step === 7 ? "Cancal" : "Back"}</Button>
-            <Button style={{ backgroundColor: "#662d91", color: "white", marginLeft: "1%" }}
+            <Button disabled={step === 7 && capchaCode===false} style={{ backgroundColor: "#662d91", color: "white", marginLeft: "1%" }}
               onClick={step !== 7 ? submitEurusForm : () => {
                 dispatch(setFormConfirming("submit"));
               }}>{step === 7 ? "Submit" : "Next"}</Button>
