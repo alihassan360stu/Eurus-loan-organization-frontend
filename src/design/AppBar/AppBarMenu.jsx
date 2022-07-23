@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { checkingResponsive } from '../../reduxStore/ReduxSlice';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     appBar: {
         backgroundColor: "rgb(215, 224, 225)",
         // boxShadow:"none" ,

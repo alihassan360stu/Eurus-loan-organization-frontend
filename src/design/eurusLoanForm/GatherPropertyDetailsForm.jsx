@@ -19,21 +19,29 @@ export const GatherPropertyDetailsForm = (props) => {
   return (
 
     <Box m="0px auto" width={isBreakPoint ? "100%" : "90%"} height="80%" padding="0px 5%">
-      <Grid container spacing={isBreakPoint ? 2 : 5}>
+      <Grid container spacing={isBreakPoint.sm ? 2 : 5}>
+
         <Grid item xs={12}>
-          <TextField value={propertyDetailsFormData.postcode} name="postcode" onChange={onchange} variant="outlined" label="PostCode" fullWidth />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField value={propertyDetailsFormData.value} label="Value" name="value" onChange={onchange} variant="outlined" fullWidth />
+          <Box m="0px auto" maxWidth={isBreakPoint.xs ? "70%" : "60%"}>
+            <TextField value={propertyDetailsFormData.postcode} name="postcode" onChange={onchange} variant="outlined" label="PostCode" fullWidth />
+          </Box>
         </Grid>
 
         <Grid item xs={12}>
-          <TextField name="property" value={propertyDetailsFormData.property} onChange={onchange} label="Select" variant="outlined" select fullWidth >
-            <MenuItem value="Residential">Residential</MenuItem>
-            <MenuItem value="Commercial">Commercial</MenuItem>
-          </TextField>
+          <Box m="0px auto" maxWidth={isBreakPoint.xs ? "70%" : "60%"}>
+            <TextField value={propertyDetailsFormData.value} label="Value" name="value" onChange={onchange} variant="outlined" fullWidth />
+          </Box>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Box m="0px auto" maxWidth={isBreakPoint.xs ? "70%" : "60%"}>
+            <TextField name="property" value={propertyDetailsFormData.property} onChange={onchange} label="Property Type" variant="outlined" select fullWidth >
+              <MenuItem value="Residential">Residential</MenuItem>
+              <MenuItem value="Commercial">Commercial</MenuItem>
+            </TextField>
+          </Box>
         </Grid>
       </Grid>
-    </Box>
+    </Box >
   )
 }

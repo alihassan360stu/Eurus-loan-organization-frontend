@@ -1,5 +1,4 @@
 import { Box, Avatar, Button, Typography } from '@material-ui/core'
-import CheckIcon from '@material-ui/icons/Check';
 import { PreQualificationForm } from './PreQualificationForm';
 import { GatherPropertyDetailsForm } from './GatherPropertyDetailsForm';
 import { GatherLoanDetails } from './GatherLoanDetails';
@@ -10,21 +9,20 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFormConfirming } from '../../reduxStore/AllFormData';
 import { setFormFinistConfirm } from '../../reduxStore/AllFormData';
+import { FamilyMembers } from './FamilyMembers';
+import { AddressForm } from './AddressForm';
+
 
 
 const EurusFormSteps = () => {
   const dispatch = useDispatch();
-  const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint.xs)
+  const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint)
   const responsiveContainer = useSelector(state => state.ReduxSlice.responsiveContainer)
   const formConfirming = useSelector(state => state.AllFormData.formConfirming)
   const formFinishConfirming = useSelector(state => state.AllFormData.formFinistConfirm)
   const step = useSelector(state => state.AllFormData.step)
-  const errorChecking = useSelector(state => state.AllFormData.errorChecking);
-  var formName = ["Pre Qualifitions", "Property Details", "Loan Details", "Personal Details", "Confirming  Details"]
-
-
-
-
+  const formSubmit = useSelector(state => state.AllFormData.formConfirming)
+  var formName = ["Pre Qualifitions", "Property Details", "Loan Details", "Personal Details", "Family Members", "Address Information", "Confirming  Details"]
   const [formSelectionPlusFormData, setFormSelectionPlusFormData] = useState(0);
 
   useEffect(() => {
@@ -45,14 +43,13 @@ const EurusFormSteps = () => {
   useEffect(() => {
 
     let a = formFinishConfirming;
-    if (a[0] !== 0 && a[1] !== 0 && a[2] !== 0 && a[3] !== 0) {
-      dispatch(setFormFinistConfirm([[1,2,3,4,5], step, errorChecking]));
+    if (a[0] !== 0 && a[1] !== 0 && a[2] !== 0 && a[3] !== 0 && a[4] !== 0 && a[5] !== 0) {
+      dispatch(setFormFinistConfirm([[1, 2, 3, 4, 5, 6, 7], step]));
     }
 
   }, [step])
 
   const formStepIncreaseAndDecrease = () => {
-
     let array = [formFinishConfirming.length];
     for (let i = 0; i < formFinishConfirming.length; i++) {
       if (i + 1 === step) {
@@ -63,24 +60,13 @@ const EurusFormSteps = () => {
       }
     }
     var stepcount = step + 1;
-    dispatch(setFormFinistConfirm([array, stepcount, errorChecking]));
+    dispatch(setFormFinistConfirm([array, stepcount]));
   }
 
 
   const submitEurusForm = () => {
     for (const variable in formSelectionPlusFormData.data) {
       if (!formSelectionPlusFormData.data[variable]) {
-
-        let array = [errorChecking.length];
-        for (let i = 0; i < errorChecking.length; i++) {
-          if (i + 1 === step) {
-            array[i] = step;
-          }
-          else {
-            array[i] = errorChecking[i];
-          }
-        }
-        dispatch(setFormFinistConfirm([formFinishConfirming, step, array]));
         alert("please fill complete form")
         return 0;
       }
@@ -102,13 +88,15 @@ const EurusFormSteps = () => {
     if (formSelectionPlusFormData.select === 4) {
       formStepIncreaseAndDecrease()
     }// submit data of form no 4
-  }
 
-  let formStepControlling = (a) => {
-    if (formConfirming) { }
-    else { dispatch(setFormFinistConfirm([formFinishConfirming, a, errorChecking])); }
-  }
+    if (formSelectionPlusFormData.select === 5) {
+      formStepIncreaseAndDecrease()
+    }// submit data of form no 5
 
+    if (formSelectionPlusFormData.select === 6) {
+      formStepIncreaseAndDecrease()
+    }// submit data of form no 6
+  }
   const formRender = () => {
     switch (step) {
       case 1: return (<PreQualificationForm
@@ -119,78 +107,73 @@ const EurusFormSteps = () => {
         confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
       case 4: return (<GatherPersonalDetails
         confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
-      case 5: return (<SubmitConform confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
+      case 5: return (<FamilyMembers
+        confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }); console.log(select); }} />);
+      case 6: return (<AddressForm
+        confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
+      case 7: return (<SubmitConform confirmingForm={(data, select) => { setFormSelectionPlusFormData({ data, select }) }} />);
       default: return (null);
     }
   }
 
   return (
-    <Box disableGutters maxWidth={responsiveContainer} height="87vh" pt="3%">
-      <Box bgcolor="#fafafa" minHeight="90%" maxWidth={isBreakPoint ? "80%" : "70%"} m={isBreakPoint.sx?"0px 5%":"0px auto"}>
+    <Box  maxWidth={responsiveContainer} pt={isBreakPoint}>
+      <Box boxShadow={2} bgcolor="#fafafa" maxWidth={isBreakPoint.xs ? "100%" : isBreakPoint.sm ? "90%" : isBreakPoint.md ? "80%" : "60%"}
+        m={isBreakPoint.sm ? "0px 5%" : "0px auto"} mt={isBreakPoint.xs ? "15%" : isBreakPoint.sm ? "8%" : isBreakPoint.md ? "5%" : "4%"}>
+        {
+          (!formSubmit) && (<Box display="flex" width="85%" height="10vh" alignItems="center" margin="0px auto">
 
-        {/*step icon and Text  setting and styling *****************************************************************************/}
-        <Box ml={isBreakPoint? isBreakPoint.md?"0%":"3.5%":"8%"} display="flex" width={"100%"}>
-          {
-            formName.map((val, index) => {
-              return (
-                <>
-                  <Box display="flex" alignItems="center" width="100%" height="40%" mt="3%">
-                    <Box style={{
-                      cursor: formConfirming ? "default" : "pointer",
-                      backgroundColor: formFinishConfirming[index] !== 0 ? "#8cc63f" : errorChecking[index] === formFinishConfirming[index] ? "#662d91" : "red"
-                    }}
-
-                      component={Avatar}  width={isBreakPoint.sx ? "5%" : "15%"} height="100%" onClick={() => { formStepControlling(index + 1) }}>
-
-                      {formFinishConfirming[index] === index + 1 ? <CheckIcon /> : index + 1}
+            {
+              formName.map((value, index) => {
+                return (
+                  <Box position="relative" width={`${(100 / formName.length) - .4}%`}>
+                    <Box height="1.5vh" bgcolor={formFinishConfirming[index] === index + 1 ? "green" : "#662d91"}  ></Box>
+                    <Box position="absolute" left="10%" marginTop="5%">
+                      {
+                        (step === index + 1) &&
+                        (<Typography style={{ color: formFinishConfirming[index] === index + 1 ? "green" : "#662d91" }} variant='h8'>{value}</Typography>)
+                      }
                     </Box>
-                    {
-                      (index !== 4) && <Box bgcolor={formFinishConfirming[index] !== 0 ? "#8cc63f" : errorChecking[index] === formFinishConfirming[index] ? "#662d91" : "red"} 
-                      width="100%" height=".7vh"></Box>
-                    }
                   </Box>
+                )
+              })
+            }
 
-                </>
-              )
-            })
-          }
-        </Box>
-
-        <Box ml="10%" display="flex">
-          {
-            formName.map((val, index) => {
-              return <>
-
-                <Box mr={index === 4 ? "5%" : "0px"} display="flex" alignItems="center" width="100%" height="90%">
-                  <Typography style={{
-
-                    fontSize: isBreakPoint ? "80%" : null,
-                    color: formFinishConfirming[index] !== 0 ? "#8cc63f" : errorChecking[index] === formFinishConfirming[index] ? "#662d91" : "red"
-                  }}>
-                    {val}
-                  </Typography>
-
-                </Box>
-
-              </>
-            })
-          }
-        </Box>
-
+          </Box>)
+        }
         {/*step icon and Text  setting and styling *****************************************************************************/}
 
-        <Box width="100%" height="85%" position="relative" mt="10%">
+        <Box width="100%" minHeight="85%" position="relative" mt="5%">
           {
             formRender()
           }
         </Box>
 
         {
-          (step !== 5) && 
-          (<Box maxWidth="100%" display="flex" alignItems="center" justifyContent="center" mt="5%">
-            <Button style={{ backgroundColor: "#662d91", padding: "1.5% 5%" , color:"white"}} onClick={submitEurusForm}>Next</Button>
+          (!formSubmit) &&
+          (<Box maxWidth="100%" display="flex" alignItems="center" justifyContent="center" mt="3%" mb="5%" pb="5%" pt="5%">
+            <Button style={{ backgroundColor: "#662d91", color: "white", marginRight: "2%" }}
+
+              onClick={step!==7 ? () => {
+                if (step !== 1) {
+                  var stepcount = step - 1;
+                  dispatch(setFormFinistConfirm([formFinishConfirming, stepcount]));
+                }
+
+              }
+                :
+                () => {
+                  dispatch(setFormConfirming("cancel"));
+                }}>
+              {step === 7 ? "Cancal" : "Back"}</Button>
+            <Button style={{ backgroundColor: "#662d91", color: "white", marginLeft: "1%" }}
+              onClick={step !== 7 ? submitEurusForm : () => {
+                dispatch(setFormConfirming("submit"));
+              }}>{step === 7 ? "Submit" : "Next"}</Button>
           </Box>)
         }
+
+
       </Box>
     </Box>
 

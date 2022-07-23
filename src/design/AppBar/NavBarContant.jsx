@@ -9,11 +9,11 @@ import {
     MenuItem,
     Button,
 } from '@material-ui/core';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 let navData = ["Home", ["Platform", "Orbis-digital platform", "ePORA Automated", "Regulatory Report"],
     ["Serveses", "Cheif Techology Office as a serves (CTOaas)", "ICT Strategy Review"], "Partners", ["  About", "Case Studies"], "Contact"];
 
-let rout=["/","#","#","#","#"];
+let rout = ["/", "#", "#", "#", "#"];
 const useStyles = makeStyles({
     tabCustomizing: {
         color: "#662d91",
@@ -33,19 +33,19 @@ const useStyles = makeStyles({
     TabsStyle: {
         lineHeight: "100px",
         flexGrow: 1,
-        // alignItems:"center"
+
     },
     dropDownIcon: {
         position: "absolute",
         left: "88px",
-        color:"#662d91"
+        color: "#662d91"
     },
     liveChatButton: {
         height: "7vh",
         width: "10vw",
         backgroundColor: "#662d91",
         borderRadius: "23px",
-        color:"white",
+        color: "white",
         "&:hover": {
             backgroundColor: "#8cc63f",
         }
@@ -73,9 +73,9 @@ export const NavBarContant = (props) => {
 
     return (
         <>
-            <Tabs scrollButtons="auto" variant="scrollable" className={classes.TabsStyle}
+          <Tabs scrollButtons="auto" variant="scrollable" className={classes.TabsStyle}
                 value={tabValue} onChange={tabHandle} orientation={props.align} style={{ width: (props.width) ? "250px" : "60vw" }}
-                TabIndicatorProps={{ style: (props.width) ? { display: "none" } : {height: "0.7vh", backgroundColor: "#8cc63f", } }} >
+                TabIndicatorProps={{ style: (props.width) ? { display: "none" } : { height: "0.7vh", backgroundColor: "#8cc63f", } }} >
                 {
                     // i have used map method for iterate navData array ( menu data like home , partner , about )
                     navData.map((name, index) => {
@@ -86,7 +86,7 @@ export const NavBarContant = (props) => {
                                    array store in navBar array [multi D navBar array]  
                                 */
 
-                                <>
+                                <div key={index}> 
                                     <span
                                         onClick={(currentobject) => { setAnchorOfMenu(currentobject.currentTarget); setIndexValue(index); }}>
                                         <Tab className={classes.tabCustomizing} onClick={() => { setTabValue(index) }}
@@ -96,25 +96,22 @@ export const NavBarContant = (props) => {
                                     {
                                         (index === indexvalue) &&
                                         (
-                                            <Menu style={{ top: "72px", }} onClose={navBarMenuClose} anchorEl={anchorOfMenu} open={Boolean(anchorOfMenu)}>
+                                            <Menu key={index + 20} style={{ top: "72px", }} onClose={navBarMenuClose} anchorEl={anchorOfMenu} open={Boolean(anchorOfMenu)}>
                                                 {
                                                     navData[index].map((a, b) => {
-                                                        return (<MenuItem className={classes.menuItemStyle} onClick={()=>{props.closeDrawer(false) ; navBarMenuClose()}}>{a}</MenuItem>)
+                                                        return (< MenuItem key={b} className={classes.menuItemStyle} onClick={() => { props.closeDrawer(false); navBarMenuClose() }}>{a}</MenuItem>)
                                                     })
                                                 }
                                             </Menu>
                                         )
                                     }
-
-                                </>
-
-                                :<>
-                               
-                                    
-                                    <Link to={rout[0]} ><Tab className={classes.tabCustomizing} onClick={() => { setTabValue(index) }} label={name} /></Link>
-                                    </>
-                               
-                               
+                                </div>
+                                :
+                                 <div key={index}>
+                                    <Link key={index + 80} to={rout[0]} >
+                                        <Tab className={classes.tabCustomizing} onClick={() => { setTabValue(index) }} label={name} />
+                                    </Link>
+                                </div>
                         )
                     })
                 }

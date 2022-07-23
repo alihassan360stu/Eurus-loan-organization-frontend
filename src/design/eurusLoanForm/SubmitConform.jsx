@@ -1,37 +1,98 @@
-import { Box, Button, Paper, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { setFormConfirming } from '../../reduxStore/AllFormData'
+import { useSelector } from 'react-redux'
+import ReCAPTCHA from "react-google-recaptcha";
+import CloseIcon from '@material-ui/icons/Close';
+import { Routes, Route ,Link} from "react-router-dom";
+
+
+import { FrontPage } from '../frontPageDesign/FrontPage';
+import { useState } from 'react';
+
 
 
 export const SubmitConform = (props) => {
     const isBreakPoint = useSelector(state => state.ReduxSlice.breakPoint)
     const formSubmit = useSelector(state => state.AllFormData.formConfirming)
-    const dispatch = useDispatch();
-    return (
+    const responsiveContainer = useSelector(state => state.ReduxSlice.responsiveContainer)
+    const personalDetailsFormData = useSelector(state => state.AllFormData.personalDetailsFormData)
+    const loan = useSelector(state => state.AllFormData.loanDetailsFormData)
+    const address = useSelector(state => state.AllFormData.addressForm)
 
+    const [don , setDon]= useState(false)
 
-        <Box maxWidth="50%" minHeight="30vh" mt="8%" display="flex" flexDirection="column" justifyContent="center" alignItems="center"
-            width={isBreakPoint ? "100%" : "50%"} margin="2% auto" boxShadow={1} height={isBreakPoint ? "50%" : "70%"} component={Paper}>
-            {
-                (formSubmit !== true) ? <> <Box mt="5%" height="70%" display="flex" alignItems="flex-end">
-                    <Typography>
-                        Do You Want To Submit Form
-                    </Typography>
+    // let history = useHistory();
+
+    // function handleClick() {
+    //   history.push("/home");
+    // }
+
+    return ( <Box m="0px auto" width={isBreakPoint.sx ? "100%" : "90%"} padding="0px 5%">
+            {(!formSubmit) ? <>
+                <Typography style={{ maxWidth: responsiveContainer }} variant={isBreakPoint.xs ? "h6" : isBreakPoint.sm ? "h5" : "h4"} align="center">
+                    Before submit Check Personal Details
+                </Typography>
+                <Box maxWidth={responsiveContainer} display="flex" mt="5%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }}  >First Name</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{personalDetailsFormData.fname}</Typography>
                 </Box>
-                    <Box display="flex" alignItems="center" justifyContent="end" height="30%" width="100%" mt="4%">
-                        <Button onClick={() => { dispatch(setFormConfirming(true)); props.confirmingForm(5); }}
-                            style={{ backgroundColor: "green", marginTop: "4%", marginRight: "1%" }}>Submit</Button>
-                        <Button onClick={() => { dispatch(setFormConfirming("cancel")); props.confirmingForm(5); }}
-                            style={{ backgroundColor: "red", marginTop: "4%", marginRight: "5%" }}>Cancal</Button>
+                <Box maxWidth={responsiveContainer} display="flex" mt="2%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }}  >Last Name</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{personalDetailsFormData.lname}</Typography>
+                </Box>
+
+                <Box maxWidth={responsiveContainer} display="flex" mt="2%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }} >Ammount Borrowed</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{loan.ammount}</Typography>
+                </Box>
+
+                <Box maxWidth={responsiveContainer} display="flex" mt="2%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }}  >Loan Type</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{loan.lounTime}</Typography>
+                </Box>
+                <Box maxWidth={responsiveContainer} display="flex" mt="2%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }}  >State</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{address.state}</Typography>
+                </Box>
+
+                <Box maxWidth={responsiveContainer} display="flex" mt="2%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }}  >City</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{address.city}</Typography>
+                </Box>
+
+
+
+                <Box maxWidth={responsiveContainer} display="flex" mt="2%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }}  >Email</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{personalDetailsFormData.email}</Typography>
+                </Box>
+
+                <Box maxWidth={responsiveContainer} display="flex" mt="2%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }}  >Phone Number</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{personalDetailsFormData.contact}</Typography>
+                </Box>
+
+                <Box maxWidth={responsiveContainer} display="flex" mt="2%">
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} style={{ width: isBreakPoint.xs ? "45%" : "35%" }}  >Date Of Birth</Typography>
+                    <Typography variant={isBreakPoint.xs ? "h8" : "h6"} >{personalDetailsFormData.date}</Typography>
+                </Box>
+                <Box mb="5%" mt="5%">
+                    <ReCAPTCHA
+                        sitekey="Your client site key"
+                    />
+                </Box>
+            </> :
+                <Box maxWidth={responsiveContainer} position="relative">
+                    <Link to="/" style={{ position: "absolute", right: "-8%", top: "5%", cursor: "pointer" }}>
+                        <CloseIcon onclick={()=>{setDon(true)}} style={{ color: "red", fontSize: "3em" }} /></Link>
+                    <Box height={isBreakPoint.xs ? "40vh" : "50vh"} display="flex" alignItems="center" justifyContent="center">
+
+                        <Typography style={{ maxWidth: responsiveContainer }} variant={isBreakPoint.xs ? "h6" : isBreakPoint.sm ? "h5" : "h4"} align="center">
+                            Form submitted successfuly
+                        </Typography>
                     </Box>
-                </> : <Box width="100%" display="flex" alignItems="center" justifyContent="center">
-                    <Typography variant='h5'>
-                        Form Submitted Successfully
-                    </Typography>
                 </Box>
             }
         </Box>
-
     )
 }
