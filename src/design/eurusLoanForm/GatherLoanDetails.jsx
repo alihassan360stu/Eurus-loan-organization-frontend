@@ -31,7 +31,7 @@ export const GatherLoanDetails = (props) => {
 
                     <Box width="100%" display="flex" justifyContent="center">
                         <TextField type="number" value={loanDetailsFormData.ammount} label="Ammount Borrowed" name="ammount"
-                            onChange={onchange} fullWidth style={{ marginBottom: "1.5vh", width: "50%" }} />
+                            onChange={onchange} fullWidth style={{ marginBottom: "1.5vh", width: "50%" }} variant="outlined"></TextField>
                     </Box>
 
                     <Box width="100%" display="flex" justifyContent="center">
@@ -46,6 +46,12 @@ export const GatherLoanDetails = (props) => {
                             min={10000}
                             max={5000000}
                         />
+                    </Box>
+                    <Box width="100%"  display="flex" justifyContent="center">
+                        <Box width="50%" position="relative" fontWeight={"bold"}>
+                            <span>1000$</span>
+                            <span style={{position:"absolute" , right:"1%" }}>5000000$</span>
+                        </Box>
                     </Box>
                 </Grid>
 
